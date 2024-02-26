@@ -13,5 +13,5 @@ do
     else
         echo "Best School"
     fi
-    ((count+=1))
+    ((count += 1))
 done
