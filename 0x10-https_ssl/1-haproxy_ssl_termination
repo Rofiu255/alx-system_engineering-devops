@@ -7,6 +7,8 @@ global
         user haproxy
         group haproxy
         daemon
+        maxconn 2048
+        tune.ssl.default-dh-param 2048
 
         # Default SSL material locations
         ca-base /etc/ssl/certs
@@ -33,11 +35,25 @@ defaults
         errorfile 502 /etc/haproxy/errors/502.http
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
+        option forwardfor
+        option http-server-close
 
-listen www
+frontend www-http
         bind *:80
-        bind *:443 ssl crt /etc/haproxy/certs/www.arvicrin.tech.pem
         http-request redirect scheme https unless { ssl_fc }
-        balance roundrobin
-        server 1231-web-01 34.74.70.205:80 check
-        server 1231-web-02 34.224.30.177:80 check
+        http-request add-header X-Forwarded-Proto http
+        default_backend www-backend
+
+frontend www-https
+        bind *:443 ssl crt /etc/haproxy/certs/royalboe.tech.pem
+        http-request add-header X-Forwarded-Proto https
+        acl letsencrypt-acl path_beg /.well-known/acme-challenge/
+        use_backend letsencrypt-backend if letsencrypt-acl
+        default_backend www-backend
+
+backend www-backend
+        redirect scheme https if !{ ssl_fc }
+        server 29159-web-01 35.173.42.252:80 check
+        server 29159-web-02 44.211.23.142:80 check
+backend letsencrypt-backend
+        server letsencrypt 127.0.0.1:54321
