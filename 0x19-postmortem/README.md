@@ -68,7 +68,7 @@ Update the Apache configuration documentation to reflect changes in version 2.4.
 Schedule a review meeting to discuss the incident and ensure all team members are aware of the new processes.
 
 Note that in response to this error, I wrote a Puppet manifest
-[0-strace_is_your_friend.pp](https://github.com/bdbaraban/alx-system_engineering-devops/blob/master/0x18-webstack_debugging_3/0-strace_is_your_friend.pp)
+[0-strace_is_your_friend.pp](https://github.com/Rofiu255/alx-system_engineering-devops/tree/master/0x17-web_stack_debugging_3/0-strace_is_your_friend.pp)
 to automate fixing of any such identitical errors should they occur in the future. The manifest
 replaces any `phpp` extensions in the file `/var/www/html/wp-settings.php` with `php`.
 
