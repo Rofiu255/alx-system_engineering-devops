@@ -1,2 +1,2 @@
 #!/bin bash
-find '^$'
+find . -empty -printf "%f\n"
