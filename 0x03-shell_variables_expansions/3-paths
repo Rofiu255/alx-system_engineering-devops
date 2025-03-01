@@ -1,2 +1,5 @@
 #!/bin/bash
-find $PATH -type d | wc -l
+#!/bin/bash
+echo "$PATH" | tr ':' '\n' | wc -l
+#or    find $(echo "$PATH" | tr ':' ' ') -type d 2>/dev/null | wc -l
+
