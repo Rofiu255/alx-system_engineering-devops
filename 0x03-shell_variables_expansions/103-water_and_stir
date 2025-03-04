@@ -1,2 +1,16 @@
 #!/bin/bash
-printf '%o\n' $(( 5#$( echo $WATER | tr water 01234 ) + 5#$( echo $STIR |tr stir. 01234 ) )) | tr 01234567 bestchol
+# printf '%o\n' $(( 5#$( echo $WATER | tr water 01234 ) + 5#$( echo $STIR |tr stir. 01234 ) )) | tr 01234567 bestchol
+#!/bin/bash
+
+# Convert WATER from base water to decimal
+water_dec=$((2#$WATER))  # Assuming base water is binary (base 2)
+
+# Convert STIR from base stir to decimal
+stir_dec=$((8#$STIR))  # Assuming base stir is octal (base 8)
+
+# Perform the addition in decimal
+sum=$((water_dec + stir_dec))
+
+# Convert the sum to base bestchol (Assuming base 16)
+echo "Result in base bestchol: $(printf '%x\n' $sum)"  # Base 16 (hex)
+
